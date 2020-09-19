@@ -106,8 +106,16 @@ ${contributors}
 ${tests}
 ## Questions
 ${questions}
+## Author
+${profilePic}
+${gitHubUsername}
+Email: ${gitHubEmail}
+Location: ${gitHubLocation}
+GitHub URL: ${gitHubURL}
+Contributors: ${contributorsList}
 `
 ))
+fs.writeFileSync(writeReadMe);
 console.log('Success!');
 }
 init();
