@@ -3,9 +3,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-async function init() {
-console.log('beginning of hw');
-const userInput = await inquirer.prompt([
+const questions = [
     {
         type: 'input',
         message: 'What is your GitHub username?',
@@ -61,25 +59,28 @@ const userInput = await inquirer.prompt([
         message: 'Any questions you would like to ask go here',
         name: 'questions'
     }
-]);
+];
 
-console.log(userInput);
-// init variables pulled from userInput
-const username = userInput.username;
-const repoTitle = userInput.repoTitle;
-const email = userInput.email;
-const description = userInput.descr;
-const tableOfContents = userInput.tableOfContents;
-const install = userInput.install;
-const usage = userInput.usage;
-const license = userInput.license;
-const contributors = userInput.contributors;
-const tests = userInput.tests;
-const questions = userInput.questions;
+function init() {
+console.log('beginning of hw');
+inquirer.prompt(questions).then(async response => {
+console.log(response);
+// init variables pulled from response
+const username = response.username;
+const repoTitle = response.repoTitle;
+const email = response.email;
+const description = response.descr;
+const tableOfContents = response.tableOfContents;
+const install = response.install;
+const usage = response.usage;
+const license = response.license;
+const contributors = response.contributors;
+const tests = response.tests;
+const questions = response.questions;
 
 // pull data from github API given the userInput
-const response = await axios.get(`https://api.github.com/users/${username}`);
-const gitResponse = response.data;
+const response2 = await axios.get(`https://api.github.com/users/${username}`).catch(error => console.log(error));
+const gitResponse = response2.data;
 console.log(data);
 const gitHubUsername = gitResponse.login;
 const gitHubEmail = gitResponse.email;
@@ -117,18 +118,10 @@ Contributors: ${contributorsList}
 ))
 fs.writeFileSync(writeReadMe);
 console.log('Success!');
+
+})
 }
 init();
 
 // Notes:
-// axios is similar to ajax - how you can make request to githubAPI
-// test on postman
-// githubAPI = https://api.github.com/search/users?q=asegre18
-// if {total_count > 0} ...
-// does the prof pic and email exist 
-// pic - avatar_url
-// prompt for github email address 
-// - if time check if email is paired with username but not MVP
-
-
 // Badges - go through good ReadMe guide link and you can create your own badges - at bottom of linked page in this read me
