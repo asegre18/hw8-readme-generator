@@ -87,38 +87,30 @@ const gitHubLocation = gitResponse.location;
 const gitHubURL = gitResponse.html_url;
 const profilePic = gitResponse.avatar_url;
 const contributorsList = contributors.split(',');
-// console.log(contributorsList);
 
+let writeReadMe = fs.writeFileSync(path.join(__dirname, 'GeneratedReadMe', 'README.md',
+`
+# ${repoTitle}
+${description}
+## Table of Contents
+${tableOfContents}
+## Installation
+${install}
+## Usage
+${usage}
+## License
+${license}
+##Contributing
+${contributors}
+## Test
+${tests}
+## Questions
+${questions}
+`
+))
+console.log('Success!');
 }
-
-
-
-// function writeToFile(fileName, data) {
-// //     // write this in a README file format with badges, ##, *...
-// //     // .md = markdown file
-// //     // look at wiki link in hw readme for details
-// // }
-
-// // // make init async so you can await inquirer and axios to call API
-// async function init() {
-//     1. github username - store in answers array
-//     check if the github API to see if name is valid
-//     if so, continue to prompt the questions
-//     otherwise return invalid...please enter valid username
-//     prompt for email
-// }
-
-// function promptQuestions() {
-//     inquirer prompt for the questions array
-//     Question types in inquirer docs
-//     validate for username to make sure its a valid username
-//     all inputs - name or ...
-//     except possible list for badges or license
-// }
-
-// init();
-// promptQuestions();
-// writeToFile();
+init();
 
 // Notes:
 // axios is similar to ajax - how you can make request to githubAPI
